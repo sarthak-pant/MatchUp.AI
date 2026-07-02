@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MatchUP.AI</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>MatchUP.AI</h1>
+            <p>
+                World Cup Match Predictor &middot;
+                Poisson regression model &middot;
+                Trained on international results 2016-2026
+            </p>
+        </header>
+
+        <!--Team pickers + predict button-->
+        <div class="card">
+            <h2>Select Matchup</h2>
+
+            <div class="control-row">
+
+                <div class="control-group">
+                    <label for="home-team">Home Team</label>
+                    <select id="home-team"></select>
+                </div>
+
+                <div class="vs-badge">vs</div>
+
+                <div class="control-group">
+                    <label for=""away-team">Away Team</label>
+                    <select id="away-team"></select>
+                </div>
+            </div>
+
+            <!--On by default since World Cup matches are neutral-venue.
+                Turn off for friendlies/host-nation games to apply home advantage. -->
+            
+            <div class=""toggle-row">
+                <label class="switch">
+                    <input type="checkbox" id="neutral-toggle" checked />
+                    <span class="slider"></span>
+                </label>
+                <label for="neutral-toggle"> Neutral Venue (World Cup)</label>
+            </div>
+
+            <!--Stays disabled until model.json/model has loaded -->
+            <button class="btn-predict" id="predict-btn" disabled>
+                Predict
+            </button>
+        </div>
+
+        <!--Shown while the model is loading, hidden once it's ready-->
+        <div class="card loading">
+            <div class="spinner"></div>
+            Loading model...
+        </div>
+
+        <!--Hidden by default. app.js will reveal this if the model fails to load.-->
+        <div class="card error" style="display:none"></div>
+
+        <!--Prediction results: hidden until the first prediction runs-->
+        <div class="card results-panel">
+
+            <!--Expected goals per team-->
+            <div class="expected-goals">
+                <div class="eg-team">
+                    <div class="team-name" id="home-team-name">—</div>
+                    <div class="lambda" id="home-lambda">—</div>
+                    <div class="label">expected goals</div>
+                </div>
+                <div class="eg-divider">:</div>
+                <div class="eg-team">
+                    <div class="team-name" id="away-team-name">—</div>
+                    <div class="lambda" id="away-lambda">—</div>
+                    <div class="label">expected goals</div>
+                </div>
+            </div>
+
+            <!--Win/draw/loss bars, width set by app.js-->
+            <div class="wdl-bars">
+                <div class="bar win" id="win-bar" style="width:0%"></div>
+                <div class="bar draw" id="draw-bar" style="width:0%"></div>
+                <div class="bar loss" id="loss-bar" style="width:0%"></div>
+            </div>
+
+            <div class="wdl-labels">
+                <span><span class="dot win"></span> Win <strong id="win-pct"></strong></span>
+                <span><span class="dot draw"></span> Draw <strong id="draw-pct"></strong></span>
+                <span><span class="dot loss"></span> Loss <strong id="loss-pct"></strong></span>
+            </div>
+
+            <!--7x7 grid: rows=home goals, columns=away goals.
+                Cell color shows who wins that score, shade shows how likely it is.-->
+                <div class="matrix-section">
+                    <h3>Score Probability Matrix (%)</h3>
+                    <div class="matrix-wrapper">
+                        <table class="matrix">
+                            <tbody id="matrix-body"></tbody>
+                        </table>
+                    </div>
+                    <p style="margin-top:0.5rem;font-size:0.75rem;color:var(--text-dim);">
+                        Rows = home goals, Columns = away goals &middot;
+                        Green=Win &middot; Amber=Draw &middot; Red=Loss
+                    </p>
+                </div>
+
+                <!--Top 10 most probable scorelines, filled in by app.js-->
+                <div class="top-scores">
+                    <h3>Most Likely Scorelines</h3>
+                    <div class="score-list"></div>
+                </div>
+        </div>
+
+        <footer>
+            Data: international football results 2016-2026 &middot;
+            Model: independent Poisson GLM with Elo ratings
+        </footer>
+    </div>
+
+    <script src="model.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
