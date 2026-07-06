@@ -27,6 +27,7 @@ import statsmodels.api as sm
 warnings.filterwarnings("ignore")
 
 # loading raw data
+
 DATA_DIR = Path(__file__).resolve().parent.parent / "data"
 DOCS_DIR = Path(__file__).resolve().parent.parent / "docs"
 
@@ -35,4 +36,38 @@ results = pd.read_csv(DATA_DIR/"results.csv")
 
 # storing elo ratings in elos
 elos = pd.read_csv(DATA_DIR/"2026elos.csv")
+
+# pairing elos to countries
+# e.g. elo_lookup["Argentina"]--> 2148
+elo_lookup = dict(zip(elos["country"], elos["elo"]))
+
+# Adjusting elo ratings using the teams' form in this world cup's group-stage
+
+# form_score = (z(pts_per_match) + z(gd_per_match)) / 2
+# adjusted elo = elo + 30*form_score
+# using 30 because it is a reasonable multiple that accounts for discrepancies between current elos and current form
+
+points_table = pd.read_csv(DATA_DIR / "2026PointsTable.csv")
+
+# average points per match
+points_table["ppm"] = points_table["Pts"] / points_table["MP"]
+
+# average goal difference per match
+points_table["gdpm"] = points_table["GD"] / points_table["MP"]
+
+# lambda (mean) of points per game
+mean_ppm = points_table["ppm"].mean()
+# standard deviation between the points per game
+std_ppm = points_table["ppm"].std()
+# lambda (mean) of goal difference per game
+mean_gdpm = points_table["gdpm"].mean()
+# standard deviation between the goal difference per game
+std_gdpm = points_table["gdpm"].std()
+
+# Calculating the Z-scores
+points_table["ppm_z"] = (points_table["ppm"] - mean_ppm) / std_ppm
+points_table["gdpm_z"] = (points_table["gdpm"] - mean_gdpm) / std_gdpm
+
+
+
 
