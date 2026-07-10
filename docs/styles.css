@@ -136,6 +136,11 @@ header p {
   transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
+.control-group select option {
+  background: var(--bg);
+  color: var(--text);
+}
+
 .control-group select:focus {
   outline: none;
   border-color: var(--accent);
@@ -158,8 +163,8 @@ header p {
 .toggle-row {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
-  margin-top: 1.25rem;
+  gap: 1.75rem;
+  margin-top: 1.75rem;
 }
 
 .toggle-row label {
@@ -174,6 +179,7 @@ header p {
 
 .switch {
   position: relative;
+  display: inline-block;
   width: 44px;
   height: 24px;
   cursor: pointer;
