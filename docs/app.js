@@ -15,7 +15,7 @@ for (let i = 1; i <= MAX_GOALS; i++)
 // k is the event you are looking for x to reach (in this case the num of goals)
 function poissonPMF(lambda, k)
 {
-    let xG = Math.exp(-lambda) * Math.pow(lambda, k) / factorials(k);
+    let xG = Math.exp(-lambda) * Math.pow(lambda, k) / factorials[k];
     return xG;
 }
 
@@ -64,7 +64,7 @@ function predictMatch(model, homeTeam, awayTeam, neutral)
         matrix[i] = [];
         for (let j = 0; j <= MAX_GOALS; j++)
         {
-            const p = pH[i]*pH[j];
+            const p = pH[i]*pA[j];
             matrix[i][j] = p;
 
             if (i> j)
@@ -177,7 +177,7 @@ function renderResults(model, result)
     let headerRow = '<tr><th></th>';
     for (let j = 0; j<=6; j++)
     {
-        headerRow += '<th>${j}</th>'
+        headerRow += `<th>${j}</th>`
     }
     headerRow += '</tr>';
     tbody.innerHTML += headerRow;
@@ -185,14 +185,14 @@ function renderResults(model, result)
     // One row per home goal count
     for (let i = 0; i<=6; i++)
     {
-        let row = '<tr><th>${i}</th>';
+        let row = `<tr><th>${i}</th>`;
         for (let j = 0; j <=6; j++)
         {
             const p = result.matrix[i][j];
             const cls = i > j ? 'win' : i==j ? 'draw' : 'loss';
             const pct = (p*100).toFixed(1);
             if (p > 0.001) {
-                row += '<td class="cell ${cls}">${pct}%</td>';
+                row += `<td class="cell ${cls}">${pct}%</td>`;
             }
             else
             {
@@ -204,15 +204,15 @@ function renderResults(model, result)
     }
 
     // Top 10 scorelines
-    const scoreList = $('score-list');
+    const scoreList = $('.score-list');
     scoreList.innerHTML = '';
     result.topScores.forEach(s => {
         const pct = (s.p * 100).toFixed(1);
         const div = document.createElement('div');
         div.className = 'score-item';
         div.innerHTML =
-            '<span class="sc">${s.h} - ${s.a} </span>' +
-            '<span class="prob">${pct}%</span>';
+            `<span class="sc">${s.h} - ${s.a} </span>` +
+            `<span class="prob">${pct}%</span>`;
         scoreList.appendChild(div);
     });
 }
