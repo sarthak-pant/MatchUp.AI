@@ -381,3 +381,70 @@ header p {
   filter: drop-shadow(0 0 18px var(--turf-glow));
   animation: popIn 0.4s var(--ease-bounce) both;
 }
+
+.eg-team:last-child .lambda {
+  color: var(--pink);
+  filter: drop-shadow(0 0 18px var(--pink-glow));
+  animation-delay: 0.08s;
+}
+
+.eg-divider {
+  flex: 0 0 auto;
+  padding: 0 1.5rem;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+.wdl-bars {
+  display: flex;
+  gap: 3px;
+  height: 2.25rem;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: var(--space-4);
+}
+
+.wdl-bars .bar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: #06110c;
+  letter-spacing: 0.04em;
+  transition: width 0.7s var(--ease-out);
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.wdl-bars .bar.win  { background: linear-gradient(90deg, #1fa571, var(--win)); }
+.wdl-bars .bar.draw { background: linear-gradient(90deg, #b8890a, var(--draw)); }
+.wdl-bars .bar.loss { background: linear-gradient(90deg, #c93636, var(--loss)); color: var(--ink); }
+
+.wdl-labels {
+  display: flex;
+  justify-content: space-around;
+  font-size: 0.78rem;
+  color: var(--ink-dim);
+  margin-bottom: var(--space-5);
+}
+
+.wdl-labels span {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.wdl-labels .dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+}
+
+.wdl-labels .dot.win  { background: var(--win);  box-shadow: 0 0 6px var(--win); }
+.wdl-labels .dot.draw { background: var(--draw); box-shadow: 0 0 6px var(--draw); }
+.wdl-labels .dot.loss { background: var(--loss); box-shadow: 0 0 6px var(--loss); }
