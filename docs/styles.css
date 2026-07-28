@@ -289,3 +289,56 @@ header p {
   transform: translateX(20px);
   background: var(--turf);
 }
+
+.switch inputL:focus-visible + .slider {
+  box-shadow: 0 0 0 3px var(--turf-glow);
+}
+
+.btn-predict {
+  margin-top: var(--space-5);
+  padding: 0.8rem 2.5rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, var(--turf), var(--pink));
+  background-size: 160% 160%;
+  color: #06110c;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s, background-position 0.5s var(--ease-out);
+  box-shadow: 0 4px 20px var(--turf-glow);
+}
+ 
+.btn-predict::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 40%, rgba(255, 255, 255, 0.3) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.45s ease;
+}
+ 
+.btn-predict:hover {
+  background-position: 100% 50%;
+  box-shadow: 0 6px 30px var(--pink-glow);
+  transform: translateY(-1px);
+}
+ 
+.btn-predict:hover::after {
+  transform: translateX(100%);
+}
+ 
+.btn-predict:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+ 
+.btn-predict:active {
+  transform: scale(0.97) translateY(0);
+  box-shadow: 0 2px 12px var(--turf-glow);
+}
+
