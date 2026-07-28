@@ -342,3 +342,42 @@ header p {
   box-shadow: 0 2px 12px var(--turf-glow);
 }
 
+.results-panel {
+  display: none;
+}
+
+.results-panel.visible {
+  display: block;
+  animation: fadeUp 0.45s var(--ease-out) both;
+}
+
+.expected-goals {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  margin-bottom: var(--space-5);
+}
+
+.eg-team {
+  flex: 1;
+}
+
+.eg-team .team-name {
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--ink-dim);
+  margin-bottom: var(--space-2);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.eg-team .lambda {
+  font-family: var(--font-display);
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--turf);
+  letter-spacing: -0.03em;
+  filter: drop-shadow(0 0 18px var(--turf-glow));
+  animation: popIn 0.4s var(--ease-bounce) both;
+}
