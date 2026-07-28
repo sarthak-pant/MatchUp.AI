@@ -201,4 +201,91 @@ header p {
   color: var(--ink);
 }
 
+.control-group select:hover {
+  border-color: var(--border-hover);
+}
 
+.control-group select:focus,
+.control-group select:focus-visible {
+  outline: none;
+  border-color: var(--turf);
+  box-shadow: 0 0 0 3px var(--turf-glow);
+  background-color: color-mix(in srgb, var(--turf) 5%, transparent);
+}
+
+.vs-badge {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--ink-dim);
+  padding: var(--space-2) 0;
+  text-align: center;
+  flex: 0 0 auto;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  margin-top: var(--space-5);
+}
+
+.toggle-row label {
+  color: var(--ink-dim);
+  font-size: 0.85rem;
+  cursor: pointer;
+  user-select: none;
+  transition: color 0.2s;
+}
+
+.toggle-row label:hover {
+  color: var(--ink);
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  inset: 0;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  transition: background 0.3s, border-color 0.3s, box-shadow 0.3s;
+}
+
+.slider::before {
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  bottom: 3px;
+  background: var(--ink-dim);
+  border-radius: 50%;
+  transition: transform 0.35s var(--ease-bounce), background 0.3s;
+}
+
+.switch input:checked + .slider {
+  background: var(--turf-glow);
+  border-color: var(--turf);
+  box-shadow: 0 0 12px var(--turf-glow);
+}
+
+.switch input:checked + .slider::before {
+  transform: translateX(20px);
+  background: var(--turf);
+}
